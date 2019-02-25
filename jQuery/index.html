@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+  <title>jQuery | Brandworkz integration</title>
+</head>
+
+<body>
+
+  <section id="bwkz-integration"></section>
+
+  <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+  <script>
+
+    var BWKZ_CONTAINER = '#bwkz-integration';
+
+    // filling in parameters those are required by Brandworkz API
+    var BWKZ_API = {
+      URL: '',
+      VERSION: '',
+      CLIENT_ID: '',
+      AUTH_TOKEN: '',
+    };
+
+    // filling in Brandworkz credentials those are required by "Authorization" part of the Widget
+    var BWKZ_AUTH = {
+      CLIENT_DB: '',
+      USERNAME: '',
+      PASSWORD: '',
+    };
+
+    $(document).ready(() => {
+
+      // filling in parameters those are required by "AssetInsert" request
+      var parameters = {
+        assetType: 'Image,Document,Video,Audio',
+        usage: 'WORDPRESS',
+        size: 50,
+        allowedTransformSystemrefs: '',
+        collapse: true,
+        enableDetailView: true,
+        enableMultiSelect: true,
+        createdByUserId: '',
+      };
+
+      $.ajax({
+        'method': 'GET',
+        'url': BWKZ_API.URL + '/v' + BWKZ_API.VERSION + '/' + BWKZ_API.CLIENT_ID + '/assetInsert?' + $.param(parameters),
+        'headers': {
+          'Authorization': 'Bearer ' + BWKZ_API.AUTH_TOKEN,
+        },
+      }).done(function (widgetHtml) {
+        // setting up an initialization function, that is required by Brandworkz integration widget
+        window.initBwkzAssetInsert = () => ({
+          auth: {
+            clientDb: BWKZ_AUTH.CLIENT_DB,
+            username: BWKZ_AUTH.USERNAME,
+            password: BWKZ_AUTH.PASSWORD,
+          },
+        });
+        // embedding the widget html structure to its container
+        $(BWKZ_CONTAINER).html(widgetHtml)
+      });
+
+    });
+  </script>
+
+</body>
+
+</html>

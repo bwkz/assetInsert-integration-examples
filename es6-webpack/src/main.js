@@ -17,6 +17,7 @@ const BWKZ_AUTH = {
   PASSWORD: '',
 };
 
+// filling in parameters those are required by "AssetInsert" request
 const parameters = {
   assetType: 'Image,Document,Video,Audio',
   usage: 'WORDPRESS',
@@ -34,6 +35,7 @@ fetch(`${BWKZ_API.URL}/v${BWKZ_API.VERSION}/${BWKZ_API.CLIENT_ID}/assetInsert?${
     Authorization: `Bearer ${BWKZ_API.AUTH_TOKEN}`,
   },
 }).then((widgetHtml) => {
+  // setting up an initialization function, that is required by Brandworkz integration widget
   window.initBwkzAssetInsert = () => ({
     auth: {
       clientDb: BWKZ_AUTH.CLIENT_DB,
@@ -41,5 +43,11 @@ fetch(`${BWKZ_API.URL}/v${BWKZ_API.VERSION}/${BWKZ_API.CLIENT_ID}/assetInsert?${
       password: BWKZ_AUTH.PASSWORD,
     },
   });
+  // setting up a final function, that is required by Brandworkz integration widget
+  // the function accepts an array of the selected Brandworkz assets as a parameter
+  window.finishBwkzAssetInsert = (response) => {
+    console.log(response);
+  };
+  // embedding the widget html structure to its container
   document.querySelector(BWKZ_CONTAINER).innerHTML = widgetHtml;
 });

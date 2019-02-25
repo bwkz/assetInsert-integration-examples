@@ -1,0 +1,23 @@
+{
+  "name": "es6-webpack",
+  "version": "1.0.0",
+  "description": "Brandworkz integration using es6 and webpack",
+  "main": "index.js",
+  "scripts": {
+    "start": "NODE_ENV=development webpack --mode development --watch",
+    "build": "NODE_ENV=production webpack --mode production"
+  },
+  "author": "Nikita Pavets (nikitapavets@gmail.com)",
+  "license": "ISC",
+  "dependencies": {
+    "query-string": "^6.2.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.3.3",
+    "@babel/plugin-proposal-object-rest-spread": "^7.3.2",
+    "babel-loader": "^8.0.5",
+    "path": "^0.12.7",
+    "webpack": "^4.29.4",
+    "webpack-cli": "^3.2.3"
+  }
+}

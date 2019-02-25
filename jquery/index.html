@@ -14,7 +14,6 @@
 
   <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
   <script>
-
     var BWKZ_CONTAINER = '#bwkz-integration';
 
     // filling in parameters those are required by Brandworkz API
@@ -32,7 +31,7 @@
       PASSWORD: '',
     };
 
-    $(document).ready(() => {
+    $(document).ready(function () {
 
       // filling in parameters those are required by "AssetInsert" request
       var parameters = {
@@ -47,20 +46,23 @@
       };
 
       $.ajax({
-        'method': 'GET',
-        'url': BWKZ_API.URL + '/v' + BWKZ_API.VERSION + '/' + BWKZ_API.CLIENT_ID + '/assetInsert?' + $.param(parameters),
-        'headers': {
-          'Authorization': 'Bearer ' + BWKZ_API.AUTH_TOKEN,
+        method: 'GET',
+        url: BWKZ_API.URL + '/v' + BWKZ_API.VERSION + '/' + BWKZ_API.CLIENT_ID + '/assetInsert?' + $.param(
+          parameters),
+        headers: {
+          Authorization: 'Bearer ' + BWKZ_API.AUTH_TOKEN,
         },
       }).done(function (widgetHtml) {
         // setting up an initialization function, that is required by Brandworkz integration widget
-        window.initBwkzAssetInsert = () => ({
-          auth: {
-            clientDb: BWKZ_AUTH.CLIENT_DB,
-            username: BWKZ_AUTH.USERNAME,
-            password: BWKZ_AUTH.PASSWORD,
-          },
-        });
+        window.initBwkzAssetInsert = function () {
+          return {
+            auth: {
+              clientDb: BWKZ_AUTH.CLIENT_DB,
+              username: BWKZ_AUTH.USERNAME,
+              password: BWKZ_AUTH.PASSWORD,
+            },
+          }
+        };
         // embedding the widget html structure to its container
         $(BWKZ_CONTAINER).html(widgetHtml)
       });

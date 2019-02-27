@@ -12,6 +12,8 @@ const BWKZ_API = {
 
 // filling in Brandworkz credentials those are required by "Authorization" part of the Widget
 const BWKZ_AUTH = {
+  CONSUMER_ID: '',
+  CONSUMER_SECRET: '',
   CLIENT_DB: '',
   USERNAME: '',
   PASSWORD: '',
@@ -38,6 +40,8 @@ fetch(`${BWKZ_API.URL}/v${BWKZ_API.VERSION}/${BWKZ_API.CLIENT_ID}/assetInsert?${
   // setting up an initialization function, that is required by Brandworkz integration widget
   window.initBwkzAssetInsert = () => ({
     auth: {
+      consumerId: BWKZ_AUTH.CONSUMER_SECRET,
+      consumerSecret: BWKZ_AUTH.CONSUMER_ID,
       clientDb: BWKZ_AUTH.CLIENT_DB,
       username: BWKZ_AUTH.USERNAME,
       password: BWKZ_AUTH.PASSWORD,

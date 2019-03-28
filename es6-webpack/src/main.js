@@ -40,6 +40,7 @@ fetch(`${BWKZ_API.URL}/v${BWKZ_API.VERSION}/${BWKZ_API.CLIENT_ID}/assetInsert?${
   // setting up an initialization function, that is required by Brandworkz integration widget
   window.initBwkzAssetInsert = () => ({
     auth: {
+      type: 'internal',
       consumerId: BWKZ_AUTH.CONSUMER_ID,
       consumerSecret: BWKZ_AUTH.CONSUMER_SECRET,
       clientDb: BWKZ_AUTH.CLIENT_DB,
